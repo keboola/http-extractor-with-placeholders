@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb0549e05578d90bf39c4f70292bfc67",
+    "content-hash": "0438a927ce3a0a12589662f03953a524",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -186,6 +186,54 @@
                 "url"
             ],
             "time": "2017-03-20T17:10:46+00:00"
+        },
+        {
+            "name": "keboola/codebuilder",
+            "version": "0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/keboola/php-codebuilder.git",
+                "reference": "437f36065121a04a41cfddc3442b41b89ffce9fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/keboola/php-codebuilder/zipball/437f36065121a04a41cfddc3442b41b89ffce9fe",
+                "reference": "437f36065121a04a41cfddc3442b41b89ffce9fe",
+                "shasum": ""
+            },
+            "require": {
+                "keboola/php-utils": "^2.1",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "^0.4",
+                "phpunit/phpunit": "^6.2",
+                "squizlabs/php_codesniffer": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Keboola\\Code": "src/",
+                    "Keboola\\Code\\Tests": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Keboola",
+                    "email": "devel@keboola.com"
+                }
+            ],
+            "description": "Execute JSON defined user scripts",
+            "keywords": [
+                "script",
+                "user",
+                "user-script"
+            ],
+            "time": "2018-03-14T20:32:14+00:00"
         },
         {
             "name": "keboola/php-component",
