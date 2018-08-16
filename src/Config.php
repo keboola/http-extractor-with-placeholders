@@ -29,4 +29,9 @@ class Config extends BaseConfig
     {
         return $this->getValue(['parameters', 'path']);
     }
+
+    public function getPlaceholders(): array
+    {
+        return $this->getValue(['parameters', 'placeholders']);
+    }
 }
