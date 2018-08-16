@@ -6,8 +6,8 @@ namespace Keboola\HttpExtractor\Config;
 
 use function is_numeric;
 use Keboola\Component\Config\BaseConfigDefinition;
+use Keboola\HttpExtractor\HttpExtractorComponent;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class ConfigDefinition extends BaseConfigDefinition
@@ -37,6 +37,25 @@ class ConfigDefinition extends BaseConfigDefinition
                         ->thenInvalid('Max redirects must be positive integer')
                 ->end()
             ->end()
+            ->arrayNode("placeholders")
+                ->useAttributeAsKey("name")
+                    ->prototype('array')
+                        ->children()
+                            ->enumNode("function")
+                                ->values(HttpExtractorComponent::ALLOWED_PLACEHOLDER_METHODS)
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->arrayNode("args")
+                                ->scalarPrototype()
+                                ->defaultValue([])
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+                ->defaultValue([])
+            ->end()
+
         ;
         // @formatter:on
         return $parametersNode;
