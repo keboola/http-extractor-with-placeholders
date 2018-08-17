@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Keboola\HttpExtractor\Tests\Config;
 
 use Keboola\HttpExtractor\Config\ConfigDefinition;
+use Keboola\HttpExtractor\HttpExtractorComponent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;
 
 class ConfigDefinitionTest extends TestCase
 {
+
     /**
      * @dataProvider provideValidConfigs
      */
@@ -41,6 +43,117 @@ class ConfigDefinitionTest extends TestCase
                     'parameters' => [
                         'baseUrl' => 'http://www.google.com',
                         'path' => 'path',
+                        'placeholders' => [],
+                    ],
+                ],
+            ],
+            'placeholders with name attr' => [
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            [
+                                'name' => 'NOW',
+                                'function' => 'time',
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            'NOW' => [
+                                'function' => 'time',
+                                'args' => [],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'placeholders as assoc. array' => [
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            'NOW' => [
+                                'function' => 'time',
+                                'args' => [],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            'NOW' => [
+                                'function' => 'time',
+                                'args' => [],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'placeholders with args' => [
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            [
+                                'name' => 'NOW',
+                                'function' => 'time',
+                                'args' => ['value'],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            'NOW' => [
+                                'function' => 'time',
+                                'args' => ['value'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'placeholders with assoc. args' => [
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            [
+                                'name' => 'NOW',
+                                'function' => 'time',
+                                'args' => [
+                                    '#cryptedProperty' => 'value',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            'NOW' => [
+                                'function' => 'time',
+                                'args' => [
+                                    '#cryptedProperty' => 'value',
+                                ],
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -117,6 +230,61 @@ class ConfigDefinitionTest extends TestCase
                 InvalidConfigurationException::class,
                 'Invalid configuration for path "root.parameters.maxRedirects": ' .
                 'Max redirects must be positive integer',
+            ],
+            'placeholders without name' => [
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [[]],
+                    ],
+                ],
+                InvalidConfigurationException::class,
+                'The attribute "name" must be set for path',
+            ],
+            'placeholders without function' => [
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [[
+                            'name' => 'MY_PLACEHOLDER',
+                        ]],
+                    ],
+                ],
+                InvalidConfigurationException::class,
+                'The child node "function" at path "root.parameters.placeholders.',
+            ],
+            'placeholders invalid function' => [
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            'MY_PLACEHOLDER' => [
+                                'function' => 'unlink',
+                            ],
+                        ],
+                    ],
+                ],
+                InvalidConfigurationException::class,
+                'Permissible values: "' . implode('", "', HttpExtractorComponent::ALLOWED_PLACEHOLDER_METHODS) . '"',
+            ],
+            'placeholders invalid args' => [
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            'MY_PLACEHOLDER' => [
+                                'function' => 'md5',
+                                'args' => 'some',
+                            ],
+                        ],
+                    ],
+                ],
+                InvalidConfigurationException::class,
+                '.args". Expected array, but got string',
             ],
         ];
     }

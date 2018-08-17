@@ -5,12 +5,27 @@ declare(strict_types=1);
 namespace Keboola\HttpExtractor;
 
 use GuzzleHttp\Psr7\Uri;
+use Keboola\Code\Builder;
+use Keboola\Code\Exception\UserScriptException;
 use Keboola\Component\BaseComponent;
+use Keboola\Component\UserException;
 use Keboola\HttpExtractor\Config\ConfigDefinition;
 use Psr\Http\Message\UriInterface;
 
 class HttpExtractorComponent extends BaseComponent
 {
+    public const ALLOWED_PLACEHOLDER_METHODS = [
+        'md5',
+        'sha1',
+        'time',
+        'date',
+        'strtotime',
+        'base64_encode',
+        'hash_hmac',
+        'sprintf',
+        'concat',
+    ];
+
     public static function joinPathSegments(string $firstPart, string $secondPart): string
     {
         $separator = '/';
@@ -51,6 +66,21 @@ class HttpExtractorComponent extends BaseComponent
         /** @var Config $config */
         $config = $this->getConfig();
 
-        return self::joinPathSegments($config->getBaseUrl(), $config->getPath());
+        $url = self::joinPathSegments($config->getBaseUrl(), $config->getPath());
+
+        $builder = new Builder(self::ALLOWED_PLACEHOLDER_METHODS);
+        foreach ($config->getPlaceholders() as $placeholder => $builderConfig) {
+            try {
+                $url = str_replace($placeholder, $builder->run((object) $builderConfig), $url);
+            } catch (UserScriptException $e) {
+                throw new UserException(sprintf(
+                    "Error on processing placeholder '%s': %s",
+                    $placeholder,
+                    $e->getMessage()
+                ));
+            }
+        }
+
+        return $url;
     }
 }
