@@ -1,9 +1,9 @@
 # Keboola HTTP Extractor - Custom with placeholders support
  
 [![Build Status](https://travis-ci.com/keboola/http-extractor-with-placeholders.svg?branch=master)](https://travis-ci.com/keboola/http-extractor-with-placeholders)
-[![Maintainability](https://api.codeclimate.com/v1/badges/dbd6232439360319f152/maintainability)](https://codeclimate.com/github/keboola/http-extractor/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/dbd6232439360319f152/test_coverage)](https://codeclimate.com/github/keboola/http-extractor/test_coverage)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/keboola/gmail-extractor/blob/master/LICENSE.md)
+[![Maintainability](https://api.codeclimate.com/v1/badges/43e8dd8c4f2e48165160/maintainability)](https://codeclimate.com/github/keboola/http-extractor-with-placeholders/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/43e8dd8c4f2e48165160/test_coverage)](https://codeclimate.com/github/keboola/http-extractor-with-placeholders/test_coverage)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/keboola/http-extractor-with-placeholders/blob/master/LICENSE.md)
 
 
 Download files from any public URL to `/data/out/files`. 
