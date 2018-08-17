@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Keboola\HttpExtractor;
 
 use GuzzleHttp\Psr7\Uri;
-use Keboola\Code\Builder;
 use Keboola\Code\Exception\UserScriptException;
 use Keboola\Component\BaseComponent;
 use Keboola\Component\UserException;
+use Keboola\HttpExtractor\Code\Builder;
 use Keboola\HttpExtractor\Config\ConfigDefinition;
 use Psr\Http\Message\UriInterface;
 
@@ -20,6 +20,7 @@ class HttpExtractorComponent extends BaseComponent
         'time',
         'date',
         'strtotime',
+        'strtodate',
         'base64_encode',
         'hash_hmac',
         'sprintf',

@@ -126,6 +126,33 @@ class ConfigDefinitionTest extends TestCase
                     ],
                 ],
             ],
+            'placeholders with srttodate' => [
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            [
+                                'name' => 'NOW',
+                                'function' => 'strtodate',
+                                'args' => ['value', 'value2'],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'parameters' => [
+                        'baseUrl' => 'http://www.google.com',
+                        'path' => 'path',
+                        'placeholders' => [
+                            'NOW' => [
+                                'function' => 'strtodate',
+                                'args' => ['value', 'value2'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'placeholders with assoc. args' => [
                 [
                     'parameters' => [

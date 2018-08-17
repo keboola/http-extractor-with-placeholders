@@ -25,6 +25,7 @@ Placeholders are user defined scripts in [Keboola CodeBuilder](https://github.co
 - `time`: Return time from the beginning of the unix epoch in seconds (1.1.1970)
 - `date`: Return date in a specified format
 - `strtotime`: Convert a date string to number of seconds from the beginning of the unix epoch
+- `strtodate`: Combination of `strtotime` and `date` functions. Requires two arguments (a date string, format).
 - `base64_encode`
 - `hash_hmac`: [See PHP documentation](http://php.net/manual/en/function.hash-hmac.php)
 - `sprintf`: [See PHP documentation](http://php.net/manual/en/function.sprintf.php)
