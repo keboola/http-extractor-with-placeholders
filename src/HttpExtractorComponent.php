@@ -71,10 +71,7 @@ class HttpExtractorComponent extends BaseComponent
         $builder = new Builder(self::ALLOWED_PLACEHOLDER_METHODS);
         foreach ($config->getPlaceholders() as $placeholder => $builderConfig) {
             try {
-                var_dump($builderConfig);
-                var_dump($url);
-                $url = str_replace($placeholder, $builder->run((object)$builderConfig), $url);
-                var_dump($url);
+                $url = str_replace($placeholder, $builder->run((object) $builderConfig), $url);
             } catch (UserScriptException $e) {
                 throw new UserException(sprintf(
                     "Error on processing placeholder '%s': %s",

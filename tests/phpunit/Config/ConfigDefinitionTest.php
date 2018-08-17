@@ -136,7 +136,7 @@ class ConfigDefinitionTest extends TestCase
                                 'name' => 'NOW',
                                 'function' => 'time',
                                 'args' => [
-                                    '#cryptedProperty' => 'value'
+                                    '#cryptedProperty' => 'value',
                                 ],
                             ],
                         ],
@@ -150,7 +150,7 @@ class ConfigDefinitionTest extends TestCase
                             'NOW' => [
                                 'function' => 'time',
                                 'args' => [
-                                    '#cryptedProperty' => 'value'
+                                    '#cryptedProperty' => 'value',
                                 ],
                             ],
                         ],
@@ -263,7 +263,7 @@ class ConfigDefinitionTest extends TestCase
                         'placeholders' => [
                             'MY_PLACEHOLDER' => [
                                 'function' => 'unlink',
-                            ]
+                            ],
                         ],
                     ],
                 ],
@@ -279,7 +279,7 @@ class ConfigDefinitionTest extends TestCase
                             'MY_PLACEHOLDER' => [
                                 'function' => 'md5',
                                 'args' => 'some',
-                            ]
+                            ],
                         ],
                     ],
                 ],
