@@ -20,8 +20,8 @@ class BuilderTest extends TestCase
             'function' => 'strtodate',
             'args' => [
                 '-1 day',
-                'Y-m-d'
-            ]
+                'Y-m-d',
+            ],
         ]);
 
         $this->assertSame($expected, $result);
@@ -38,7 +38,7 @@ class BuilderTest extends TestCase
             'function' => 'strtodate',
             'args' => [
                 '-1 day',
-            ]
+            ],
         ]);
     }
 }
